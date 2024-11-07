@@ -88,6 +88,9 @@ if [ $INSTALL_PG_SERVER = "True" ]; then
     echo -e "\n---- Creating the ODOO PostgreSQL User  ----"
     sudo -E -u postgres bash -c "psql -X -p $OE_DB_PORT -c \"CREATE USER $OE_DB_USER WITH CREATEDB NOCREATEROLE NOSUPERUSER PASSWORD '$OE_DB_PASSWORD';\""
 
+    echo -e "\n---- Displaying Privileges for the New User ----"
+    sudo -E -u postgres bash -c "psql -X -p $OE_DB_PORT -c \"SELECT rolname, rolsuper, rolcreaterole, rolcreatedb FROM pg_roles WHERE rolname = '$OE_DB_USER';\""
+
     # Restart so that all new config is loaded:
     sudo service postgresql restart
 else
