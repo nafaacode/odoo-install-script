@@ -85,6 +85,8 @@ if [ $INSTALL_PG_SERVER = "True" ]; then
     # Restart so that all new config is loaded:
     sudo service postgresql restart
 
+    cd /tmp
+    
     echo -e "\n---- Creating the ODOO PostgreSQL User  ----"
     sudo -E -u postgres bash -c "psql -X -p $OE_DB_PORT -c \"CREATE USER $OE_DB_USER WITH CREATEDB NOCREATEROLE NOSUPERUSER PASSWORD '$OE_DB_PASSWORD';\""
 
